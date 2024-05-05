@@ -3,7 +3,7 @@ package com.Amex.NextGenLoyality.Repository;
 
 
 import com.Amex.NextGenLoyality.Models.Transaction;
-import com.Amex.NextGenLoyality.Models.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -13,6 +13,8 @@ import java.util.List;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
 
-    List<Transaction> findAllTransactionByUserId(String userId);
+
+    @Query("SELECT u FROM Transaction u WHERE u.customer_id = 1")
+    List<Transaction> findAllByCustomerId(int id);
 
 }

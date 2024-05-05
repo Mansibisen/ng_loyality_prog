@@ -12,8 +12,8 @@ import jakarta.persistence.Id;
 public class Transaction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String trans_id;
-	private String customer_id;
+	private int trans_id;
+	private int customer_id;
     private String trans_date; // format mm/dd/yyyy
 	private long trans_amount;
 	private String merchant_id;
@@ -21,16 +21,16 @@ public class Transaction {
 	private String brand_name;
 	private String segment_name;
 	private long loyalty_points_earned;
-	public String getTrans_id() {
+	public int getTrans_id() {
 		return trans_id;
 	}
-	public void setTrans_id(String trans_id) {
+	public void setTrans_id(int trans_id) {
 		this.trans_id = trans_id;
 	}
-	public String getCustomer_id() {
+	public int getCustomer_id() {
 		return customer_id;
 	}
-	public void setCustomer_id(String customer_id) {
+	public void setCustomer_id(int customer_id) {
 		this.customer_id = customer_id;
 	}
 	public String getTrans_date() {

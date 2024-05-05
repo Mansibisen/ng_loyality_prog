@@ -3,7 +3,6 @@ package com.Amex.NextGenLoyality.Repository;
 
 
 import com.Amex.NextGenLoyality.Models.Reward;
-import com.Amex.NextGenLoyality.Models.User;
 import org.springframework.data.repository.CrudRepository;
 
 

@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String customer_id;
+	private int customer_id;
 	private boolean attrition_flag;  // 1 if account is closed else 0
 	private String name;
 	private String email;
@@ -20,11 +20,21 @@ public class Customer {
 	private String credit_card_number;
 	private int age;  
 	private boolean gender; // 0 for male, 1 for female
-	
-	public String getCustomer_id() {
+	private long loyalty_points;
+
+
+	public long getLoyalty_points() {
+		return loyalty_points;
+	}
+
+	public void setLoyalty_points(long loyalty_points) {
+		this.loyalty_points = loyalty_points;
+	}
+
+	public int getCustomer_id() {
 		return customer_id;
 	}
-	public void setCustomer_id(String customer_id) {
+	public void setCustomer_id(int customer_id) {
 		this.customer_id = customer_id;
 	}
 	public boolean isAttrition_flag() {

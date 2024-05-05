@@ -1,12 +1,11 @@
 package com.Amex.NextGenLoyality.Controller;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
+import com.Amex.NextGenLoyality.Models.Customer;
 import com.Amex.NextGenLoyality.Models.Transaction;
-import com.Amex.NextGenLoyality.Models.User;
 import com.Amex.NextGenLoyality.Repository.TransactionRepository;
-import com.Amex.NextGenLoyality.Repository.UserRepository;
+import com.Amex.NextGenLoyality.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +16,14 @@ public class TransactionController {
 	TransactionRepository transactionRepository;
 
 	@Autowired
-	UserRepository userRepository;
+	CustomerRepository customerRepository;
 
 
 
 	@GetMapping("/transactions")
-	public List<Transaction> index(@RequestParam String userId) {
+	public List<Transaction> index(@RequestParam int customerId) {
 
-		List<Transaction> transactions = transactionRepository.findAllTransactionByUserId(userId);
+		List<Transaction> transactions = transactionRepository.findAllByCustomerId(customerId);
 
 		return transactions;
 
@@ -33,10 +32,11 @@ public class TransactionController {
 
 	@PostMapping("/transactions/add")
 	Transaction newEmployee(@RequestBody Transaction t) {
-		String userId = t.getUserid();
-		User user = userRepository.findById(userId);
-		user.setloyality(user.getloyality() + t.getamount()*0.5);
-		userRepository.save(user);
+		int customerId = t.getCustomer_id();
+		Customer customer = customerRepository.findById(customerId).get();
+
+		customer.setLoyalty_points( customer.getLoyalty_points() + t.getLoyalty_points_earned() );
+		customerRepository.save(customer);
 		return transactionRepository.save(t);
 	}
 
