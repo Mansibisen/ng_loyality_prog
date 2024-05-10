@@ -1,9 +1,6 @@
 package com.Amex.NextGenLoyality.Controller;
 
-import com.Amex.NextGenLoyality.Models.Cart;
-import com.Amex.NextGenLoyality.Models.Product;
-import com.Amex.NextGenLoyality.Models.Transaction;
-import com.Amex.NextGenLoyality.Models.Wishlist;
+import com.Amex.NextGenLoyality.Models.*;
 import com.Amex.NextGenLoyality.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +76,27 @@ public class MarketplaceController {
     Cart newCart(@RequestBody Cart c) {
 
         return cartRepository.save(c);
+
+    }
+
+    @GetMapping("/reccomendations")
+    public List<Product> getAllRecommendations(@RequestParam int customerId) {
+
+        return (List<Product>) productRepository.findAll();
+
+
+    }
+
+    @PostMapping("/products/cart/add")
+    String buyProduct(@RequestParam int customerId , @RequestParam int productId) {
+
+        Product product = productRepository.findById(productId).get();
+        Customer user   = customerRepository.findById(customerId).get();
+
+        user.setLoyalty_points(user.getLoyalty_points() - product.getCost());
+        customerRepository.save(user);
+
+        return "success";
 
     }
 }
